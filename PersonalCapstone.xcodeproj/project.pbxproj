@@ -12,9 +12,6 @@
 		84DBF5E929BA408D00458E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DBF5E829BA408D00458E8B /* Assets.xcassets */; };
 		84DBF5EC29BA408D00458E8B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DBF5EB29BA408D00458E8B /* Preview Assets.xcassets */; };
 		84DBF62B29BD293700458E8B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBF62A29BD293700458E8B /* MainView.swift */; };
-		84DBF65829C0CEF600458E8B /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBF65729C0CEF600458E8B /* EntriesView.swift */; };
-		84DBF65A29C0D33400458E8B /* MoodTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBF65929C0D33400458E8B /* MoodTrackerView.swift */; };
-		84DBF65C29C0D3F700458E8B /* PromptsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBF65B29C0D3F700458E8B /* PromptsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +21,6 @@
 		84DBF5E829BA408D00458E8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84DBF5EB29BA408D00458E8B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		84DBF62A29BD293700458E8B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		84DBF65629C0C02700458E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		84DBF65729C0CEF600458E8B /* EntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesView.swift; sourceTree = "<group>"; };
-		84DBF65929C0D33400458E8B /* MoodTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodTrackerView.swift; sourceTree = "<group>"; };
-		84DBF65B29C0D3F700458E8B /* PromptsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,13 +53,9 @@
 		84DBF5E329BA408C00458E8B /* PersonalCapstone */ = {
 			isa = PBXGroup;
 			children = (
-				84DBF65629C0C02700458E8B /* Info.plist */,
 				84DBF5E429BA408C00458E8B /* PersonalCapstoneApp.swift */,
-				84DBF62A29BD293700458E8B /* MainView.swift */,
 				84DBF5E629BA408C00458E8B /* ContentView.swift */,
-				84DBF65729C0CEF600458E8B /* EntriesView.swift */,
-				84DBF65B29C0D3F700458E8B /* PromptsView.swift */,
-				84DBF65929C0D33400458E8B /* MoodTrackerView.swift */,
+				84DBF62A29BD293700458E8B /* MainView.swift */,
 				84DBF5E829BA408D00458E8B /* Assets.xcassets */,
 				84DBF5EA29BA408D00458E8B /* Preview Content */,
 			);
@@ -151,10 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84DBF65C29C0D3F700458E8B /* PromptsView.swift in Sources */,
 				84DBF5E729BA408C00458E8B /* ContentView.swift in Sources */,
-				84DBF65829C0CEF600458E8B /* EntriesView.swift in Sources */,
-				84DBF65A29C0D33400458E8B /* MoodTrackerView.swift in Sources */,
 				84DBF62B29BD293700458E8B /* MainView.swift in Sources */,
 				84DBF5E529BA408C00458E8B /* PersonalCapstoneApp.swift in Sources */,
 			);
@@ -288,7 +274,7 @@
 				DEVELOPMENT_TEAM = 7YA3SS5ST9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PersonalCapstone/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -317,7 +303,7 @@
 				DEVELOPMENT_TEAM = 7YA3SS5ST9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PersonalCapstone/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

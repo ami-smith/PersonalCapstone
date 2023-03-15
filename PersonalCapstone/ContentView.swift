@@ -9,23 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationStack {
-            
-            Text("This is the main page")
-                .navigationTitle("Welcome")
-                .toolbar {
-                    Button(action: {
-                        
-                    }) {
-                        print("Entries Button Tapped")
-                    } label: {
-                        Image(systemName: "plus")
+        NavigationView {
+            NavigationLink(destination: Text("SecondView")) {
+                Section {
+                    Button("This takes you to the second view") {
+                        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
                     }
-
-                        
-                        
+                    
+    
                     
                 }
+                    .navigationBarTitle("Welcome")
+        }
+            
+            
         }
     }
 }
