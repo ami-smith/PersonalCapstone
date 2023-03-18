@@ -22,21 +22,24 @@ struct EntriesView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                List(entries) { entry in
-                    NavigationLink(destination: JournalEntryView(entry: entry)) {
-                        VStack(alignment: .leading) {
-                            Text(entry.title)
-                                .font(.headline)
-                            Text(entry.body)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+            ZStack {
+                Color("cream").ignoresSafeArea()
+                VStack {
+                    List(entries) { entry in
+                        NavigationLink(destination: JournalEntryView(entry: entry)) {
+                            VStack(alignment: .leading) {
+                                Text(entry.title)
+                                    .font(.headline)
+                                Text(entry.body)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
                         }
+                        
                     }
+                    .navigationBarTitle(Text("Journal Entries"))
                 }
-                .navigationBarTitle(Text("Journal Entries"))
             }
-            
         }
     }
     
@@ -44,11 +47,11 @@ struct EntriesView: View {
         let entry: JournalEntry
         
         var body: some View {
-            VStack(alignment: .leading) {
+            NavigationView {
                 Text(entry.title)
                     .font(.largeTitle)
                 Text(entry.body)
-                    .padding(.top, 10)
+                    .padding(10)
             }
             .padding()
         }

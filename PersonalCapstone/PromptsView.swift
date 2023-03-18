@@ -9,7 +9,12 @@ import SwiftUI
 
 struct PromptsView: View {
     var body: some View {
-        Text("This is where the prompts will be")
+        ZStack {
+            Color("cream").ignoresSafeArea()
+            VStack {
+            Text("This is where the prompts will be")
+        }
+    }
     }
 }
 
