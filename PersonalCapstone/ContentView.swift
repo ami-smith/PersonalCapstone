@@ -13,7 +13,6 @@ struct ContentView: View {
             ZStack {
                 Color("cream").ignoresSafeArea()
                 VStack {
-                    ScrollView(.horizontal) {
                         HStack {
                             ZStack {
                                 Spacer()
@@ -28,20 +27,10 @@ struct ContentView: View {
                                     .padding(7)
                             
                             }
-                        
-                            ZStack {
-                                Spacer()
-                                Rectangle()
-                                    .fill(Color( "dustyRose"))
-                                    .frame(width: 200, height: 200)
-                                Text("This is a placeholder where the quote is gonna go")
-                                    .frame(width: 183, height: 183)
-                                    .foregroundColor(.white)
-                                
-                                    .padding(7)
-                            }
+    
                            
                         }
+                        
                         .padding(7)
                     }
                     .navigationTitle("Welcome")
@@ -57,7 +46,7 @@ struct ContentView: View {
             }
         }
     }
-}
+
 
 
 

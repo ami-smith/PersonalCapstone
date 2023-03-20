@@ -23,8 +23,17 @@ struct EntriesView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("cream").ignoresSafeArea()
-                VStack {
+
+//                    NavigationStack {
+//                        List {
+//                            ForEach(entries.indices) { index in
+//                                NavigationLink(destination: JournalEntryView(entry: $entries[index])) {
+//                                    Text(entries[index])
+//                                }
+//                            }
+//                            .navigationTitle("Entries")
+//                        }
+//                    }
                     List(entries) { entry in
                         NavigationLink(destination: JournalEntryView(entry: entry)) {
                             VStack(alignment: .leading) {
@@ -35,13 +44,31 @@ struct EntriesView: View {
                                     .foregroundColor(.gray)
                             }
                         }
-                        
+
                     }
+                    .background(Color("cream").ignoresSafeArea())
+                    .scrollContentBackground(.hidden)
                     .navigationBarTitle(Text("Journal Entries"))
-                }
+               }
             }
         }
     }
+    
+
+//***this should be able to edit the view when the entry is clicked on and takes the user to an editable text field where they can edit their entry.
+//    struct EditView: View {
+//        @State private var entry = JournalEntry(title: title, body: body)
+//        var body: some View {
+//            VStack {
+//                TextField("Enter Text here", text: $entries)
+//                    .textFieldStyle(.roundedBorder)
+//                Button("Save") {
+//                    print("Save Button Pressed")
+//                }
+//            }
+//            .navigationTitle("View and Edit")
+//        }
+//    }
     
     struct JournalEntryView: View {
         let entry: JournalEntry
@@ -64,4 +91,4 @@ struct EntriesView: View {
             EntriesView()
         }
     }
-}
+

@@ -62,8 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				84DBF5E429BA408C00458E8B /* PersonalCapstoneApp.swift */,
-				84DBF5E629BA408C00458E8B /* ContentView.swift */,
 				84DBF62A29BD293700458E8B /* MainView.swift */,
+				84DBF5E629BA408C00458E8B /* ContentView.swift */,
 				84065FB129C2273700F7E000 /* EntriesView.swift */,
 				84065FB929C267B100F7E000 /* NewJournalEntryView.swift */,
 				84065FB529C2276800F7E000 /* PromptsView.swift */,

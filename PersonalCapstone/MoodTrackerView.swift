@@ -9,7 +9,10 @@ import SwiftUI
 
 struct MoodTrackerView: View {
     var body: some View {
-        Text("This is where the mood tracker will be")
+        ZStack {
+            Color("cream").ignoresSafeArea()
+            Text("This is where the mood tracker will be")
+        }
     }
 }
 
