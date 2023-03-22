@@ -61,6 +61,7 @@ struct PromptsView: View {
                             Rectangle()
                                 .fill(Color( "coral"))
                                 .frame(width: 320, height: 120)
+                                .cornerRadius(10)
                             Text("Feeling stuck? Try one of these helpful prompts to get your journaling juices flowing!")
                                 .frame(width: 320, height: 150)
                                 .foregroundColor(.white)
@@ -73,9 +74,11 @@ struct PromptsView: View {
                                         GeometryReader { geometry in
                                             Rectangle()
                                                 .fill(Color( "dustyRose"))
+                                                .cornerRadius(15)
+                                                .shadow(color: .gray, radius: 7, x: 0, y: 5)
                                               //  .frame(width: 300, height: 450)
                                                 .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 40) / -20
-                                                                       ), axis: (x: 0, y: 10.0, z: 20)
+                                                ), axis: (x: 0, y: 10.0, z: 0)
                                                 )
                                             Text(prompt.body)
                                                 .frame(width: 280, height: 300)
@@ -84,7 +87,7 @@ struct PromptsView: View {
                                                 .font(.title)
                                                 .multilineTextAlignment(.center)
                                                 .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 40) / -20
-                                                                       ), axis: (x: 0, y: 10.0, z: 20)
+                                                                       ), axis: (x: 0, y: 10.0, z: 0)
                                                 )
                                                 
                                         }

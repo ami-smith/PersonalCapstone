@@ -13,6 +13,7 @@ struct ContentView: View {
             ZStack {
                 Color("cream").ignoresSafeArea()
                 VStack {
+                   // WeekView()
                         HStack {
                             ZStack {
                                 Spacer()
@@ -22,13 +23,13 @@ struct ContentView: View {
                                 Text("This is a placeholder where the quote is gonna go")
                                     .frame(width: 183, height: 183)
                                     .foregroundColor(.white)
-                                    
+                                
                                 
                                     .padding(7)
-                            
+                                
                             }
-    
-                           
+                            
+                            
                         }
                         
                         .padding(7)
@@ -39,15 +40,30 @@ struct ContentView: View {
                         // Action for plus button
                     }) {
                         Image(systemName: "plus")
-                            
+                        
                     }
                     )
                 }
             }
+        
         }
     }
 
-
+//struct WeekView: View {
+//    let calendar = Calendar.current
+//    
+//    var body: some View {
+//        HStack {
+//            ForEach(0..<7) { index in
+//                let date = calendar.date(byAdding: .day, value: index, to: Date())!
+//                let formatter = DateFormatter()
+//                formatter.dateFormat = "EEE"
+//                let day = formatter.string(from: date)
+//                Text(day)
+//            }
+//        }
+//    }
+//}
 
 
 

@@ -18,7 +18,7 @@ struct MainView: View {
                             Text("Home")
                         }
                     
-                    EntriesView()
+                    EntryListView()
                         .tabItem {
                             Image(systemName: "book")
                             Text("Entries")

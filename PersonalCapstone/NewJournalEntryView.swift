@@ -31,10 +31,24 @@ struct NewJournalEntryView: View {
                     
                     TextField("Write your entry here", text: $entryText, axis: .vertical)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .lineLimit(23, reservesSpace: true)
+                        .lineLimit(15, reservesSpace: true)
                         .padding()
                     Spacer()
                     
+                    ZStack {
+                        Rectangle()
+                            .fill(Color( "dustyRose"))
+                            .frame(width: 330, height: 150)
+                            .cornerRadius(15)
+                    
+                        Rectangle()
+                            .fill(Color("roseQuartz"))
+                            .frame(width: 300, height: 75)
+                            .cornerRadius(15)
+                        Text("How are you feeling?")
+                    }
+                    Spacer()
+                    Spacer()
                     Button(action: {}, label: {
                         Text("Save Entry")
                         
