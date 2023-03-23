@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EntryDetailView: View {
-//    @Binding var entries: [JournalEntry]
+    
     @Binding var entry: JournalEntry
     
     
@@ -16,9 +16,14 @@ struct EntryDetailView: View {
         NavigationView {
             VStack {
                 TextField("Entry Title", text: $entry.title)
-                    .font(.largeTitle)
-                TextField("Entry Descritpion", text: $entry.body)
-                    .padding(10)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .font(.title)
+                    .lineLimit(2, reservesSpace: true)
+                TextField("Entry Description", text: $entry.body)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .lineLimit(15, reservesSpace: true)
+                    .padding()
+                Spacer()
             }
         
 
@@ -27,9 +32,9 @@ struct EntryDetailView: View {
     }
 }
 
-
-struct EntryDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        EntryDetailView(entry: .constant(JournalEntry(title: "this is a test", body: "This is also a test")))
-    }
-}
+//
+//struct EntryDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EntryDetailView(entry: .constant(JournalEntry(title: "this is a test", body: "This is also a test")))
+//    }
+//}

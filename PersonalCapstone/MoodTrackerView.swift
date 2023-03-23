@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MoodTrackerView: View {
+    
+    
     var body: some View {
         ZStack {
             Color("cream").ignoresSafeArea()

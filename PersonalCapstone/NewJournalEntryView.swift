@@ -8,59 +8,63 @@
 import SwiftUI
 
 struct NewJournalEntryView: View {
-    
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.dismiss) var dismiss
     
     @State private var entryText = ""
     @State private var entryTitle = ""
+    @State private var currentMood = ""
+    
+    let moods = ["😊", "😠"]
+    
     
     var body: some View {
         NavigationStack {
             ZStack{
                 Color("cream").ignoresSafeArea()
-                VStack {
-                    Text("")
-                        .navigationTitle("New Entry")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .font(.title)
+                // VStack {
+                //                    Text("")
+                //                        .navigationTitle("New Entry")
+                //                        .navigationBarTitleDisplayMode(.inline)
+                //                        .font(.title)
+                
+                
+                Form {
+                    Section {
+                        TextField("Title", text: $entryTitle)
+                            .lineLimit(2, reservesSpace: true)
+                        
+                        TextField("Write your entry here", text: $entryText, axis: .vertical)
+                            .lineLimit(15, reservesSpace: true)
+                            
+                            }
+                    Picker("How are you feeling?", selection: $currentMood) {
+                        ForEach(moods, id: \.self) {
+                            Text($0)
+                        }
                     
-                    TextField("Title", text: $entryTitle, axis: .vertical)
-                        .lineLimit(2, reservesSpace: true)
-                    
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    
-                    TextField("Write your entry here", text: $entryText, axis: .vertical)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .lineLimit(15, reservesSpace: true)
-                        .padding()
-                    Spacer()
-                    
-                    ZStack {
-                        Rectangle()
-                            .fill(Color( "dustyRose"))
-                            .frame(width: 330, height: 150)
-                            .cornerRadius(15)
-                    
-                        Rectangle()
-                            .fill(Color("roseQuartz"))
-                            .frame(width: 300, height: 75)
-                            .cornerRadius(15)
-                        Text("How are you feeling?")
                     }
-                    Spacer()
-                    Spacer()
-                    Button(action: {}, label: {
-                        Text("Save Entry")
-                        
-                        
-                        
-                    })
+                    Section {
+                
+                        Button("Save") {
+                            let newEntry = JournalData(context: moc)
+                            newEntry.id = UUID()
+                            newEntry.title = entryTitle
+                            newEntry.body = entryText
+                            
+                            try? moc.save()
+                            dismiss()
+                        }
+                    }
                 }
+            }
+            .navigationTitle("Add Entry")
+            .scrollContentBackground(.hidden)
             }
         }
        
     }
-}
+
 
 struct NewJournalEntryView_Previews: PreviewProvider {
     static var previews: some View {

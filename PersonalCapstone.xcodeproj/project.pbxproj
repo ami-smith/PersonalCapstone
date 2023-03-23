@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84065FB229C2273700F7E000 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84065FB129C2273700F7E000 /* EntriesView.swift */; };
+		84065FB229C2273700F7E000 /* EntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84065FB129C2273700F7E000 /* EntryListView.swift */; };
 		84065FB429C2275200F7E000 /* MoodTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84065FB329C2275200F7E000 /* MoodTrackerView.swift */; };
 		84065FB629C2276800F7E000 /* PromptsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84065FB529C2276800F7E000 /* PromptsView.swift */; };
 		84065FBA29C267B100F7E000 /* NewJournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84065FB929C267B100F7E000 /* NewJournalEntryView.swift */; };
 		84065FBE29CA082900F7E000 /* EntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84065FBD29CA082900F7E000 /* EntryDetailView.swift */; };
+		84065FE729CB451A00F7E000 /* JournalData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84065FE529CB451A00F7E000 /* JournalData.xcdatamodeld */; };
+		84065FE929CB485D00F7E000 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84065FE829CB485D00F7E000 /* DataController.swift */; };
 		84DBF5E529BA408C00458E8B /* PersonalCapstoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBF5E429BA408C00458E8B /* PersonalCapstoneApp.swift */; };
 		84DBF5E729BA408C00458E8B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBF5E629BA408C00458E8B /* ContentView.swift */; };
 		84DBF5E929BA408D00458E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DBF5E829BA408D00458E8B /* Assets.xcassets */; };
@@ -20,11 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84065FB129C2273700F7E000 /* EntriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntriesView.swift; sourceTree = "<group>"; };
+		84065FB129C2273700F7E000 /* EntryListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryListView.swift; sourceTree = "<group>"; };
 		84065FB329C2275200F7E000 /* MoodTrackerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoodTrackerView.swift; sourceTree = "<group>"; };
 		84065FB529C2276800F7E000 /* PromptsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromptsView.swift; sourceTree = "<group>"; };
 		84065FB929C267B100F7E000 /* NewJournalEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewJournalEntryView.swift; sourceTree = "<group>"; };
 		84065FBD29CA082900F7E000 /* EntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailView.swift; sourceTree = "<group>"; };
+		84065FE629CB451A00F7E000 /* JournalData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JournalData.xcdatamodel; sourceTree = "<group>"; };
+		84065FE829CB485D00F7E000 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		84DBF5E129BA408C00458E8B /* PersonalCapstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalCapstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DBF5E429BA408C00458E8B /* PersonalCapstoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalCapstoneApp.swift; sourceTree = "<group>"; };
 		84DBF5E629BA408C00458E8B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,12 +70,14 @@
 				84DBF5E429BA408C00458E8B /* PersonalCapstoneApp.swift */,
 				84DBF62A29BD293700458E8B /* MainView.swift */,
 				84DBF5E629BA408C00458E8B /* ContentView.swift */,
-				84065FB129C2273700F7E000 /* EntriesView.swift */,
+				84065FB129C2273700F7E000 /* EntryListView.swift */,
 				84065FBD29CA082900F7E000 /* EntryDetailView.swift */,
 				84065FB929C267B100F7E000 /* NewJournalEntryView.swift */,
 				84065FB529C2276800F7E000 /* PromptsView.swift */,
 				84065FB329C2275200F7E000 /* MoodTrackerView.swift */,
+				84065FE829CB485D00F7E000 /* DataController.swift */,
 				84DBF5E829BA408D00458E8B /* Assets.xcassets */,
+				84065FE529CB451A00F7E000 /* JournalData.xcdatamodeld */,
 				84DBF5EA29BA408D00458E8B /* Preview Content */,
 			);
 			path = PersonalCapstone;
@@ -157,8 +163,10 @@
 			files = (
 				84065FBE29CA082900F7E000 /* EntryDetailView.swift in Sources */,
 				84065FB629C2276800F7E000 /* PromptsView.swift in Sources */,
+				84065FE729CB451A00F7E000 /* JournalData.xcdatamodeld in Sources */,
 				84DBF5E729BA408C00458E8B /* ContentView.swift in Sources */,
-				84065FB229C2273700F7E000 /* EntriesView.swift in Sources */,
+				84065FB229C2273700F7E000 /* EntryListView.swift in Sources */,
+				84065FE929CB485D00F7E000 /* DataController.swift in Sources */,
 				84065FB429C2275200F7E000 /* MoodTrackerView.swift in Sources */,
 				84065FBA29C267B100F7E000 /* NewJournalEntryView.swift in Sources */,
 				84DBF62B29BD293700458E8B /* MainView.swift in Sources */,
@@ -363,6 +371,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84065FE529CB451A00F7E000 /* JournalData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84065FE629CB451A00F7E000 /* JournalData.xcdatamodel */,
+			);
+			currentVersion = 84065FE629CB451A00F7E000 /* JournalData.xcdatamodel */;
+			path = JournalData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 84DBF5D929BA408C00458E8B /* Project object */;
 }
