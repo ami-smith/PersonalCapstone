@@ -7,8 +7,11 @@
 
 import CoreData
 import Foundation
+import SwiftUI
 
 class DataController: ObservableObject {
+    static let shared = DataController()
+    
     let container = NSPersistentContainer(name: "JournalData")
     
     init() {
@@ -17,5 +20,12 @@ class DataController: ObservableObject {
                 print("Core Data failed to load: \(error.localizedDescription)")
             }
         }
+    }
+}
+
+
+extension Binding {
+     func toUnwrapped<T>(defaultValue: T) -> Binding<T> where Value == Optional<T>  {
+        Binding<T>(get: { self.wrappedValue ?? defaultValue }, set: { self.wrappedValue = $0 })
     }
 }

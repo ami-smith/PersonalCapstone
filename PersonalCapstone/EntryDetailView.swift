@@ -9,28 +9,39 @@ import SwiftUI
 
 struct EntryDetailView: View {
     
-    @Binding var entry: JournalEntry
-    
+    @ObservedObject var entry: JournalData
     
     var body: some View {
         NavigationView {
-            VStack {
-                TextField("Entry Title", text: $entry.title)
+            VStack(alignment: .leading) {
+                TextField("Entry Title", text: $entry.title.toUnwrapped(defaultValue: ""))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .font(.title)
-                    .lineLimit(2, reservesSpace: true)
-                TextField("Entry Description", text: $entry.body)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .lineLimit(15, reservesSpace: true)
-                    .padding()
+                    //.lineLimit(2, truncationMode: .tail)
+                    .padding(.bottom, 8)
+                
+                ScrollView {
+                    TextEditor(text: $entry.body.toUnwrapped(defaultValue: ""))
+                        .frame(minHeight: 300, maxHeight: .infinity)
+                        .foregroundColor(.primary)
+                        .font(.body)
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .padding()
+                
                 Spacer()
             }
-        
-
+            .padding()
         }
-        .padding()
+        .background(Color("cream"))
+        .ignoresSafeArea()
     }
 }
+
+
 
 //
 //struct EntryDetailView_Previews: PreviewProvider {

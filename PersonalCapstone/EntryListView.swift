@@ -23,17 +23,18 @@ struct EntryListView: View {
     @FetchRequest(sortDescriptors: [
         //SortDescriptor(from: \.date) *** I want it to be able to just sort the journal entries by date written
     ]) var entries: FetchedResults<JournalData>
-    
+    @Environment(\.dismiss) var dismiss
+    @State private var showingDeleteAlert = false
     @State private var showingNewEntryScreen = false
     
     var body: some View {
         NavigationStack {
             ZStack {
-//                Color("cream").ignoresSafeArea() ***** this is not working******
                 List {
                     ForEach(entries) { entry in
                         NavigationLink {
-                            // EntryDetailView(entry: entry)
+                            EntryDetailView(entry: entry)
+                                .environment(\.managedObjectContext, DataController.shared.container.viewContext)
                         } label: {
                             VStack(alignment: .leading) {
                                 Text(entry.title ?? "")
@@ -44,8 +45,25 @@ struct EntryListView: View {
                                     .lineLimit(1)
                             }
                         }
+                        .swipeActions(edge: .trailing) {
+                            Button("Delete") {
+                                showingDeleteAlert = true
+                            }
+                            .tint(.red)
+                        }
+                        .alert("Delete Entry?", isPresented: $showingDeleteAlert) {
+                            Button("Delete", role: .destructive) {
+                                
+//   I need a new function that takes an entry or index. Inside that function 
+                            }
+                            Button("Cancel", role: .cancel) {}
+                        } message: {
+                            Text("Are you sure?")
+                        }
+                    
                     }
-                    .onDelete(perform: deleteEntry)
+//                    .onDelete(perform: deleteEntry)
+                    
                 }
                 
                 .navigationTitle("My Entries")
@@ -61,25 +79,26 @@ struct EntryListView: View {
                             Label("Add Entry", systemImage: "plus")
                         }
                     }
-                    
-                    
                 }
                 .sheet(isPresented: $showingNewEntryScreen) {
                     NewJournalEntryView()
                 }
             }
+            .background(Color("cream"))
         }
     }
     
     func deleteEntry(at offsets: IndexSet) {
-        for offset in offsets {
-            let entry = entries[offset]
-            moc.delete(entry)
-        }
-        try? moc.save()
+        showingDeleteAlert = true
+        
+                for index in offsets {
+                    let entry = entries[index]
+                    moc.delete(entry)
+                }
+                try? moc.save()
+            }
+        
     }
-}
-
 struct EntryListView_Previews: PreviewProvider {
     static var previews: some View {
         EntryListView()

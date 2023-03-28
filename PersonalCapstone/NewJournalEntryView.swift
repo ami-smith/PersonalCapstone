@@ -22,12 +22,6 @@ struct NewJournalEntryView: View {
         NavigationStack {
             ZStack{
                 Color("cream").ignoresSafeArea()
-                // VStack {
-                //                    Text("")
-                //                        .navigationTitle("New Entry")
-                //                        .navigationBarTitleDisplayMode(.inline)
-                //                        .font(.title)
-                
                 
                 Form {
                     Section {
@@ -36,16 +30,16 @@ struct NewJournalEntryView: View {
                         
                         TextField("Write your entry here", text: $entryText, axis: .vertical)
                             .lineLimit(15, reservesSpace: true)
-                            
-                            }
+                        
+                    }
                     Picker("How are you feeling?", selection: $currentMood) {
                         ForEach(moods, id: \.self) {
                             Text($0)
                         }
-                    
+                        
                     }
                     Section {
-                
+                        
                         Button("Save") {
                             let newEntry = JournalData(context: moc)
                             newEntry.id = UUID()
@@ -60,10 +54,10 @@ struct NewJournalEntryView: View {
             }
             .navigationTitle("Add Entry")
             .scrollContentBackground(.hidden)
-            }
         }
-       
     }
+    
+}
 
 
 struct NewJournalEntryView_Previews: PreviewProvider {
