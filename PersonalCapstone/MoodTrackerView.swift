@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct Emotion {
-    let value: Int
+    let value: String
     let date: Date
 }
 
 let emotions: [Emotion] = [
-    Emotion(value: 3, date: Date().addingTimeInterval(-86400 * 7)), // 1 week ago
-    Emotion(value: 10, date: Date().addingTimeInterval(-86400 * 6)), // 6 days ago
-    Emotion(value: 1, date: Date().addingTimeInterval(-86400 * 5)), // 5 days ago
-    Emotion(value: 6, date: Date().addingTimeInterval(-86400 * 4)), // 4 days ago
-    Emotion(value: 3, date: Date().addingTimeInterval(-86400 * 3)), // 3 days ago
-    Emotion(value: 5, date: Date().addingTimeInterval(-86400 * 2)), // 2 days ago
-    Emotion(value: 1, date: Date().addingTimeInterval(-86400)), // 1 day ago
-    Emotion(value: 9, date: Date()), // today
+    Emotion(value: "😢", date: Date().addingTimeInterval(-86400 * 7)), // 1 week ago
+    Emotion(value: "😠", date: Date().addingTimeInterval(-86400 * 6)), // 6 days ago
+    Emotion(value: "😐", date: Date().addingTimeInterval(-86400 * 5)), // 5 days ago
+    Emotion(value: "😠", date: Date().addingTimeInterval(-86400 * 4)), // 4 days ago
+    Emotion(value: "🤩", date: Date().addingTimeInterval(-86400 * 3)), // 3 days ago
+    Emotion(value: "😊", date: Date().addingTimeInterval(-86400 * 2)), // 2 days ago
+    Emotion(value: "😢", date: Date().addingTimeInterval(-86400)), // 1 day ago
+    Emotion(value: "😠", date: Date()), // today
 ]
 
 
@@ -53,14 +53,18 @@ struct HeatMapChart: View {
         return daysInMonth
     }
     
-    private func getColorForEmotion(_ emotion: Int) -> Color {
+    private func getColorForEmotion(_ emotion: String) -> Color {
         switch emotion {
-        case 1...3:
-            return Color("indigo")
-        case 4...7:
-            return Color("purpleHaze")
-        case 8...10:
+        case "🤩":
             return Color("fuchsia")
+        case "😊":
+            return Color("roseRed")
+        case "😐":
+            return Color("dustyRose")
+        case "😠":
+            return Color("lilac")
+        case "😢":
+            return Color("purpleHaze")
         default:
             return Color("lightGray")
         }
@@ -91,7 +95,7 @@ struct HeatMapChart: View {
                                 let emotion = emotions.first(where: { calendar.isDate($0.date, inSameDayAs: day) })
                                 VStack {
                                     Circle()
-                                        .fill(getColorForEmotion(emotion?.value ?? 0))
+                                        .fill(getColorForEmotion(emotion?.value ?? ""))
                                         .overlay(
                                             Text("\(calendar.component(.day, from: day))")
                                                 .fontWeight(.bold)

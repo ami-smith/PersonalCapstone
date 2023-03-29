@@ -7,15 +7,37 @@
 
 import SwiftUI
 
+struct MoodChoice: View {
+    let mood: String
+    let color: Color
+    
+    var body: some View {
+        HStack {
+            Circle()
+                .fill(color)
+                .frame(width: 30, height: 30)
+            
+            Text(mood)
+        }
+    }
+}
+
+
 struct NewJournalEntryView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
     @State private var entryText = ""
     @State private var entryTitle = ""
-    @State private var currentMood = ""
+    @State private var currentMood: String?
     
-    let moods = ["😊", "😠"]
+    let moods = [
+        ("🤩", Color("fuchsia")),
+        ("😊", Color("roseRed")),
+        ("😐", Color("dustyRose")),
+        ("😠", Color("lilac")),
+        ("😢", Color("purpleHaze"))
+    ]
     
     
     var body: some View {
@@ -32,11 +54,13 @@ struct NewJournalEntryView: View {
                             .lineLimit(15, reservesSpace: true)
                         
                     }
-                    Picker("How are you feeling?", selection: $currentMood) {
-                        ForEach(moods, id: \.self) {
-                            Text($0)
+                    Section {
+                        Picker("How are you feeling?", selection: $currentMood) {
+                            ForEach(moods, id: \.0) { mood, color in
+                                MoodChoice(mood: mood, color: color)
+                                    .tag(mood)
+                            }
                         }
-                        
                     }
                     Section {
                         
@@ -45,6 +69,7 @@ struct NewJournalEntryView: View {
                             newEntry.id = UUID()
                             newEntry.title = entryTitle
                             newEntry.body = entryText
+                            newEntry.mood = currentMood ?? ""
                             
                             try? moc.save()
                             dismiss()

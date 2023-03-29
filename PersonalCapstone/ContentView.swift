@@ -15,7 +15,6 @@ struct ContentView: View {
             ZStack {
                 Color("cream").ignoresSafeArea()
                 VStack {
-                    // WeekView()
                     HStack {
                         ZStack {
                             Spacer()
@@ -25,15 +24,9 @@ struct ContentView: View {
                             Text("This is a placeholder where the quote is gonna go")
                                 .frame(width: 183, height: 183)
                                 .foregroundColor(.white)
-                            
-                            
                                 .padding(7)
-                            
                         }
-                        
-                        
                     }
-                    
                     .padding(7)
                 }
                 .navigationTitle("Welcome")
@@ -54,7 +47,7 @@ struct ContentView: View {
 }
 //struct WeekView: View {
 //    let calendar = Calendar.current
-//    
+//
 //    var body: some View {
 //        HStack {
 //            ForEach(0..<7) { index in
@@ -67,10 +60,6 @@ struct ContentView: View {
 //        }
 //    }
 //}
-
-
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

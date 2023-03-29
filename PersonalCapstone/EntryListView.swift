@@ -11,17 +11,19 @@ struct JournalEntry: Identifiable {
     let id = UUID()
     var title: String
     var body: String
+    var date: Date
     
     init(title: String = "", body: String = "") {
         self.title = title
         self.body = body
+        self.date = Date()
     }
 }
 
 struct EntryListView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [
-        //SortDescriptor(from: \.date) *** I want it to be able to just sort the journal entries by date written
+        NSSortDescriptor(keyPath: \JournalData.date, ascending: false)
     ]) var entries: FetchedResults<JournalData>
     @Environment(\.dismiss) var dismiss
     @State private var showingDeleteAlert = false
@@ -37,12 +39,18 @@ struct EntryListView: View {
                                 .environment(\.managedObjectContext, DataController.shared.container.viewContext)
                         } label: {
                             VStack(alignment: .leading) {
-                                Text(entry.title ?? "")
+                                Text(getFormattedDate(date: entry.date))
                                     .font(.headline)
+                                    .foregroundColor(.gray)
+                                
+                                // there's no date being displayed here******
+                                Text(entry.title ?? "")
+                                    .font(.title3)
                                 Text(entry.body ?? "")
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                                     .lineLimit(1)
+                                
                             }
                         }
                         .swipeActions(edge: .trailing) {
@@ -54,15 +62,15 @@ struct EntryListView: View {
                         .alert("Delete Entry?", isPresented: $showingDeleteAlert) {
                             Button("Delete", role: .destructive) {
                                 
-//   I need a new function that takes an entry or index. Inside that function 
+                                //   I need a new function that takes an entry or index. Inside that function
                             }
                             Button("Cancel", role: .cancel) {}
                         } message: {
                             Text("Are you sure?")
                         }
-                    
+                        
                     }
-//                    .onDelete(perform: deleteEntry)
+                    //                    .onDelete(perform: deleteEntry)
                     
                 }
                 
@@ -85,20 +93,29 @@ struct EntryListView: View {
                 }
             }
             .background(Color("cream"))
+            .scrollContentBackground(.hidden)
         }
     }
     
     func deleteEntry(at offsets: IndexSet) {
         showingDeleteAlert = true
         
-                for index in offsets {
-                    let entry = entries[index]
-                    moc.delete(entry)
-                }
-                try? moc.save()
-            }
-        
+        for index in offsets {
+            let entry = entries[index]
+            moc.delete(entry)
+        }
+        try? moc.save()
     }
+    
+    func getFormattedDate(date: Date?) -> String {
+        guard let date = date else { return "No Date" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: date)
+    }
+    
+}
 struct EntryListView_Previews: PreviewProvider {
     static var previews: some View {
         EntryListView()
