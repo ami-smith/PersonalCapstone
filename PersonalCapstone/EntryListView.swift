@@ -11,19 +11,19 @@ struct JournalEntry: Identifiable {
     let id = UUID()
     var title: String
     var body: String
-    var date: Date
+    var emoji: String
     
-    init(title: String = "", body: String = "") {
-        self.title = title
-        self.body = body
-        self.date = Date()
+    init(title: String? = nil, body: String? = nil, emoji: String? = nil) {
+        self.title = title ?? ""
+            self.body = body ?? ""
+            self.emoji = emoji ?? ""
+        }
     }
-}
 
 struct EntryListView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [
-        NSSortDescriptor(keyPath: \JournalData.date, ascending: false)
+        //NSSortDescriptor(keyPath: \JournalData.date, ascending: false)
     ]) var entries: FetchedResults<JournalData>
     @Environment(\.dismiss) var dismiss
     @State private var showingDeleteAlert = false
@@ -39,13 +39,12 @@ struct EntryListView: View {
                                 .environment(\.managedObjectContext, DataController.shared.container.viewContext)
                         } label: {
                             VStack(alignment: .leading) {
-                                Text(getFormattedDate(date: entry.date))
-                                    .font(.headline)
-                                    .foregroundColor(.gray)
-                                
-                                // there's no date being displayed here******
-                                Text(entry.title ?? "")
-                                    .font(.title3)
+                                HStack {
+                                    Text(entry.title ?? "")
+                                        .font(.title3)
+                                    Spacer()
+                                    Text(entry.emoji ?? "")
+                                }
                                 Text(entry.body ?? "")
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
@@ -61,8 +60,7 @@ struct EntryListView: View {
                         }
                         .alert("Delete Entry?", isPresented: $showingDeleteAlert) {
                             Button("Delete", role: .destructive) {
-                                
-                                //   I need a new function that takes an entry or index. Inside that function
+                                deleteEntry(entry)
                             }
                             Button("Cancel", role: .cancel) {}
                         } message: {
@@ -76,10 +74,6 @@ struct EntryListView: View {
                 
                 .navigationTitle("My Entries")
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        EditButton()
-                        
-                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             showingNewEntryScreen.toggle()
@@ -92,30 +86,19 @@ struct EntryListView: View {
                     NewJournalEntryView()
                 }
             }
-            .background(Color("cream"))
+            .background(Color("updatedCream"))
             .scrollContentBackground(.hidden)
         }
     }
     
-    func deleteEntry(at offsets: IndexSet) {
-        showingDeleteAlert = true
-        
-        for index in offsets {
-            let entry = entries[index]
+    func deleteEntry(_ entry: JournalData) {
+        //showingDeleteAlert = true
             moc.delete(entry)
-        }
         try? moc.save()
+        }
     }
-    
-    func getFormattedDate(date: Date?) -> String {
-        guard let date = date else { return "No Date" }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        return dateFormatter.string(from: date)
-    }
-    
-}
+
+
 struct EntryListView_Previews: PreviewProvider {
     static var previews: some View {
         EntryListView()

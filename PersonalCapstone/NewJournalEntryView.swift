@@ -7,20 +7,6 @@
 
 import SwiftUI
 
-struct MoodChoice: View {
-    let mood: String
-    let color: Color
-    
-    var body: some View {
-        HStack {
-            Circle()
-                .fill(color)
-                .frame(width: 30, height: 30)
-            
-            Text(mood)
-        }
-    }
-}
 
 
 struct NewJournalEntryView: View {
@@ -29,21 +15,21 @@ struct NewJournalEntryView: View {
     
     @State private var entryText = ""
     @State private var entryTitle = ""
-    @State private var currentMood: String?
+    @State private var currentMood = "🤩"
     
     let moods = [
-        ("🤩", Color("fuchsia")),
-        ("😊", Color("roseRed")),
-        ("😐", Color("dustyRose")),
-        ("😠", Color("lilac")),
-        ("😢", Color("purpleHaze"))
+        "🤩",
+        "😊",
+        "😐",
+        "😠",
+        "😢"
     ]
     
     
     var body: some View {
         NavigationStack {
             ZStack{
-                Color("cream").ignoresSafeArea()
+                Color("updatedCream").ignoresSafeArea()
                 
                 Form {
                     Section {
@@ -55,11 +41,18 @@ struct NewJournalEntryView: View {
                         
                     }
                     Section {
-                        Picker("How are you feeling?", selection: $currentMood) {
-                            ForEach(moods, id: \.0) { mood, color in
-                                MoodChoice(mood: mood, color: color)
-                                    .tag(mood)
+                        VStack {
+                            Text("How are you feeling?")
+                            Picker("How are you feeling?", selection: $currentMood) {
+                                ForEach(moods, id: \.self) { mood in
+                                    Text(mood)
+                                        .font(.largeTitle)
+                                        .padding()
+                                    
+                                }
                             }
+                            .pickerStyle(SegmentedPickerStyle())
+                            
                         }
                     }
                     Section {
@@ -69,10 +62,13 @@ struct NewJournalEntryView: View {
                             newEntry.id = UUID()
                             newEntry.title = entryTitle
                             newEntry.body = entryText
-                            newEntry.mood = currentMood ?? ""
+                            newEntry.mood = currentMood
+                            
                             
                             try? moc.save()
                             dismiss()
+                            
+                           // selectedMood = currentMood
                         }
                     }
                 }
@@ -81,7 +77,6 @@ struct NewJournalEntryView: View {
             .scrollContentBackground(.hidden)
         }
     }
-    
 }
 
 

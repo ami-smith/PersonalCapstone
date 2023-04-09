@@ -53,7 +53,7 @@ struct PromptsView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("cream").ignoresSafeArea()
+                Color("updatedCream").ignoresSafeArea()
                 ZStack {
                     VStack {
                         

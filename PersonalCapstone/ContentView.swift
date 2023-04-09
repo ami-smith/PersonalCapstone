@@ -13,53 +13,56 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("cream").ignoresSafeArea()
+                Color("updatedCream").ignoresSafeArea()
                 VStack {
+                    Spacer()
+                        .frame(height: 50)
+                        .padding(.bottom, 20)
                     HStack {
-                        ZStack {
+                        Spacer()
+                        Text("Let's get started!")
+                        VStack {
+                            Image("squiggle")
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                                .padding(10)
                             Spacer()
-                            Rectangle()
-                                .fill(Color( "dustyRose"))
-                                .frame(width: 200, height: 200)
-                            Text("This is a placeholder where the quote is gonna go")
-                                .frame(width: 183, height: 183)
-                                .foregroundColor(.white)
-                                .padding(7)
                         }
+                        .padding(.trailing,100)
+                    }
+                    //.padding(.top, 10)
+                    HStack {
+                        Spacer()
+                        ZStack(alignment: .center) {
+                            //Spacer()
+                            Image("This is where your story blooms")
+                                .padding(30)
+                        }
+                        .offset(y: -50)
+                        Spacer()
                     }
                     .padding(7)
                 }
-                .navigationTitle("Welcome")
+                
                 .navigationBarTitleDisplayMode(.large)
-                .navigationBarItems(trailing: Button(action: {
-                    isShowingNewEntry = true
-                }) {
-                    Image(systemName: "plus")
-                    
+                .navigationBarItems(trailing:
+                                        HStack {
+                    Spacer()
+                    Button(action: {
+                        isShowingNewEntry = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                
                 }
                 )
             }
-                
+            
             .sheet(isPresented: $isShowingNewEntry) {
                 NewJournalEntryView()            }
         }
     }
 }
-//struct WeekView: View {
-//    let calendar = Calendar.current
-//
-//    var body: some View {
-//        HStack {
-//            ForEach(0..<7) { index in
-//                let date = calendar.date(byAdding: .day, value: index, to: Date())!
-//                let formatter = DateFormatter()
-//                formatter.dateFormat = "EEE"
-//                let day = formatter.string(from: date)
-//                Text(day)
-//            }
-//        }
-//    }
-//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
