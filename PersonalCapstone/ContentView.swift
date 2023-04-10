@@ -15,33 +15,22 @@ struct ContentView: View {
             ZStack {
                 Color("updatedCream").ignoresSafeArea()
                 VStack {
+                    Image("HeyThere")
+                        .padding(.leading, 7)
+                        .padding(.top, 20)
+                        
                     Spacer()
-                        .frame(height: 50)
-                        .padding(.bottom, 20)
-                    HStack {
-                        Spacer()
-                        Text("Let's get started!")
-                        VStack {
-                            Image("squiggle")
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                                .padding(10)
-                            Spacer()
-                        }
-                        .padding(.trailing,100)
-                    }
-                    //.padding(.top, 10)
                     HStack {
                         Spacer()
                         ZStack(alignment: .center) {
-                            //Spacer()
+                            
                             Image("This is where your story blooms")
-                                .padding(30)
                         }
-                        .offset(y: -50)
+                        .offset(y: -75)
                         Spacer()
                     }
-                    .padding(7)
+                    .padding(53)
+                    Spacer()
                 }
                 
                 .navigationBarTitleDisplayMode(.large)

@@ -9,46 +9,37 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-
-            VStack {
-                TabView {
-                    ContentView()
-                        .tabItem {
-                            Image(systemName: "house")
-                            Text("Home")
-                        }
-                    
-                    EntryListView()
-                        .tabItem {
-                            Image(systemName: "book")
-                            Text("Entries")
-                        }
-                    
-                    PromptsView()
-                        .tabItem {
-                            Image(systemName: "list.bullet")
-                            Text("Prompts")
-                        }
-                    
-                    MoodTrackerView()
-                        .tabItem {
-                            Image(systemName: "face.smiling")
-                            Text("Mood Tracker")
-                            
-                            
-                        }
-                }
+        
+        VStack {
+            TabView {
+                ContentView()
+                    .tabItem {
+                        Image(systemName: "house")
+//                            .renderingMode(.template)
+//                            .foregroundColor(Color("banner"))
+                        Text("Home")
+                    }
+                
+                EntryListView()
+                    .tabItem {
+                        Image(systemName: "book")
+                        Text("Entries")
+                    }
+                
+                PromptsView()
+                    .tabItem {
+                        Image(systemName: "list.bullet")
+                        Text("Prompts")
+                    }
+                
+                //                    MoodTrackerView()
+                //                        .tabItem {
+                //                            Image(systemName: "face.smiling")
+                //                            Text("Mood Tracker")
+                //                        }
             }
-//            .navigationTitle("Welcome")
-//            .navigationBarTitleDisplayMode(.large)
-//            .navigationBarItems(trailing: Button(action: {
-//                // Action for plus button
-//            }) {
-//                Image(systemName: "plus")
-//            }
-//            )
         }
-//    }
+    }
 }
 
 

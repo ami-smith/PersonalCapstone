@@ -20,6 +20,24 @@ struct JournalEntry: Identifiable {
         }
     }
 
+//@Binding var selectedMood: String?
+func colorForMood(mood: String) -> Color {
+    switch mood {
+    case "🤩":
+        return Color("fuchsia")
+    case "😊":
+        return Color("roseRed")
+    case "😐":
+        return Color("dustyRose")
+    case "😠":
+        return Color("lilac")
+    case "😢":
+        return Color("purpleHaze")
+    default:
+        return Color("lightGray")
+    }
+}
+
 struct EntryListView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [
@@ -28,70 +46,162 @@ struct EntryListView: View {
     @Environment(\.dismiss) var dismiss
     @State private var showingDeleteAlert = false
     @State private var showingNewEntryScreen = false
+    @State private var entryToBeDeleted: JournalData?
     
     var body: some View {
         NavigationStack {
             ZStack {
-                List {
-                    ForEach(entries) { entry in
-                        NavigationLink {
-                            EntryDetailView(entry: entry)
-                                .environment(\.managedObjectContext, DataController.shared.container.viewContext)
-                        } label: {
-                            VStack(alignment: .leading) {
+                Color("updatedCream").ignoresSafeArea()
+                if entries.isEmpty {
+                    Text("No Entries Yet")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button {
+                                    showingNewEntryScreen.toggle()
+                                } label: {
+                                    Label("Add Entry", systemImage: "plus")
+
+                                }
+                                .background(Color("updatedCream"))
+                                .scrollContentBackground(.hidden)
+                            }
+                        }
+                } else {
+                    List {
+                        ForEach(entries) { entry in
+                            NavigationLink {
+                                EntryDetailView(entry: entry)
+                                    .environment(\.managedObjectContext, DataController.shared.container.viewContext)
+                            } label: {
                                 HStack {
+                                    Circle()
+                                        .foregroundColor(colorForMood(mood: entry.emoji ?? ""))
+                                        .frame(width: 30, height: 30)
+                                }
+                                VStack(alignment: .leading) {
                                     Text(entry.title ?? "")
                                         .font(.title3)
-                                    Spacer()
-                                    Text(entry.emoji ?? "")
+                                    Text(entry.body ?? "")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                        .lineLimit(1)
                                 }
-                                Text(entry.body ?? "")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                                    .lineLimit(1)
+                                .swipeActions(edge: .trailing) {
+                                    Button("Delete") {
+                                        print(entry)
+                                        entryToBeDeleted = entry
+                                        showingDeleteAlert = true
+                                    }
+                                    .tint(.red)
+                                }
+                                .alert("Delete Entry?", isPresented: $showingDeleteAlert) {
+                                    Button("Delete", role: .destructive) {
+                                        if let entryToBeDeleted {
+                                            deleteEntry(entryToBeDeleted)
+                                        }
+                                    }
+                                    Button("Cancel", role: .cancel) {}
+                                } message: {
+                                    Text("Are you sure?")
+                                }
+                                .listStyle(InsetGroupedListStyle())
+                                .scrollContentBackground(.hidden)
+                                //                    .background(
+                                //                    Image("background")
+                                //                        .resizable())
+                                .navigationTitle("My Entries")
+                            }
+                        }
+                    }
+                    .background(Color("updatedCream"))
+                    .scrollContentBackground(.hidden)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                showingNewEntryScreen.toggle()
+                            } label: {
+                                Label("Add Entry", systemImage: "plus")
+
+                            }
+                            .background(Color("updatedCream"))
+                            .scrollContentBackground(.hidden)
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    ZStack {
+                        Rectangle()
+                            .fill(Color("roseQuartz"))
+                            .frame(height: 200)
+                        VStack {
+                            HStack {
+                                
+                                Circle()
+                                    .fill(Color("fuchsia"))
+                                    .frame(width: 20, height: 20)
+                                Text("Excited, Hopeful, Determined, Confident")
+                                Spacer()
                                 
                             }
-                        }
-                        .swipeActions(edge: .trailing) {
-                            Button("Delete") {
-                                showingDeleteAlert = true
+                            HStack {
+                                Circle()
+                                    .fill(Color("roseRed"))
+                                    .frame(width: 20, height: 20)
+                                Text("Grateful, Happy, Joyful, Loving, Optimistic")
+                                Spacer()
                             }
-                            .tint(.red)
-                        }
-                        .alert("Delete Entry?", isPresented: $showingDeleteAlert) {
-                            Button("Delete", role: .destructive) {
-                                deleteEntry(entry)
+                            HStack {
+                                Circle()
+                                    .fill(Color("dustyRose"))
+                                    .frame(width: 20, height: 20)
+                                Text("Pessimistic, Tired, Bored, Embarassed")
+                                Spacer()
                             }
-                            Button("Cancel", role: .cancel) {}
-                        } message: {
-                            Text("Are you sure?")
+                            HStack {
+                                Circle()
+                                    .fill(Color("lilac"))
+                                    .frame(width: 20, height: 20)
+                                Text("Annoyed, Angry, Resentful, Mad")
+                                Spacer()
+                            }
+                            HStack {
+                                Circle()
+                                    .fill(Color("purpleHaze"))
+                                    .frame(width: 20, height: 20)
+                                Text("Upset, Depressed, Frustrated, Unhappy")
+                                Spacer()
+                            }
                         }
-                        
+                        .padding(5)
                     }
-                    //                    .onDelete(perform: deleteEntry)
                     
                 }
                 
-                .navigationTitle("My Entries")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showingNewEntryScreen.toggle()
-                        } label: {
-                            Label("Add Entry", systemImage: "plus")
-                        }
-                    }
-                }
-                .sheet(isPresented: $showingNewEntryScreen) {
-                    NewJournalEntryView()
-                }
             }
-            .background(Color("updatedCream"))
-            .scrollContentBackground(.hidden)
+            .sheet(isPresented: $showingNewEntryScreen) {
+                NewJournalEntryView()
+            }
         }
-    }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showingNewEntryScreen.toggle()
+                } label: {
+                    Label("Add Entry", systemImage: "plus")
+
+                }
+                .background(Color("updatedCream"))
+                .scrollContentBackground(.hidden)
+            }
+        }
+}
+    
     
     func deleteEntry(_ entry: JournalData) {
+        print("Entry:\(entry)")
         //showingDeleteAlert = true
             moc.delete(entry)
         try? moc.save()

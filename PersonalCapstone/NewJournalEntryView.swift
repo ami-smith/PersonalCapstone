@@ -62,7 +62,7 @@ struct NewJournalEntryView: View {
                             newEntry.id = UUID()
                             newEntry.title = entryTitle
                             newEntry.body = entryText
-                            newEntry.mood = currentMood
+                            newEntry.emoji = currentMood
                             
                             
                             try? moc.save()

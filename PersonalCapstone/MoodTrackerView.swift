@@ -11,7 +11,6 @@ struct Emotion: Identifiable {
     @Binding var selectedMood: String
     let id = UUID()
     let value: String
-//    let date: Date
 }
 
 struct EmotionKeyItem: Identifiable {
@@ -19,13 +18,18 @@ struct EmotionKeyItem: Identifiable {
     let color: Color
     let description: String
 }
-    
-    
+
+
 struct CircleGridView: View {
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: [
+        //NSSortDescriptor(keyPath: \JournalData.date, ascending: false)
+    ]) var entries: FetchedResults<JournalData>
+
     let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()),
                    GridItem(.flexible())
     ]
-    @Binding var selectedMood: String
+    @Binding var selectedMood: String?
     func colorForMood(mood: String) -> Color {
         switch mood {
         case "🤩":
@@ -43,24 +47,32 @@ struct CircleGridView: View {
         }
     }
 
-    
+
     var body: some View {
         Spacer()
         ScrollView(.horizontal) {
             Text("April")
                 .font(.largeTitle)
-            LazyHGrid(rows: columns, spacing: 17) {
-                ForEach(1...30, id: \.self) { index in
-                    ZStack {
+            VStack {
+                ForEach(entries) { entry in
+                    if let mood = entry.mood {
                         Circle()
-                            .fill(colorForMood(mood: selectedMood))
+                            .fill(colorForMood(mood: mood))
                             .frame(width: 45, height: 45)
-
                     }
                 }
             }
-            .frame(height:250)
-            .padding(15)
+ //                ForEach(1...30, id: \.self) { index in
+//                    ZStack {
+//                        Circle()
+//                            .fill(colorForMood(mood: selectedMood ?? ""))
+//                            .frame(width: 45, height: 45)
+//
+//                    }
+//                }
+//            }
+//            .frame(height:250)
+//            .padding(15)
         }
         Spacer()
         ZStack {
@@ -69,59 +81,57 @@ struct CircleGridView: View {
                 .frame(height: 200)
             VStack {
                 HStack {
-                    
+
                     Circle()
                         .fill(Color("fuchsia"))
                         .frame(width: 20, height: 20)
-                    Text("Excited, Hopeful, Determined, Confident 🤩")
+                    Text("Excited, Hopeful, Determined, Confident")
                     Spacer()
-                    
+
                 }
                 HStack {
                     Circle()
                         .fill(Color("roseRed"))
                         .frame(width: 20, height: 20)
-                    Text("Grateful, Happy, Joyful, Loving, Optimistic 😊")
+                    Text("Grateful, Happy, Joyful, Loving, Optimistic")
                     Spacer()
                 }
                 HStack {
                     Circle()
                         .fill(Color("dustyRose"))
                         .frame(width: 20, height: 20)
-                    Text("Pessimistic, Tired, Bored, Embarassed 😐")
+                    Text("Pessimistic, Tired, Bored, Embarassed")
                     Spacer()
                 }
                 HStack {
                     Circle()
                         .fill(Color("lilac"))
                         .frame(width: 20, height: 20)
-                    Text("Annoyed, Angry, Resentful, Mad 😠")
+                    Text("Annoyed, Angry, Resentful, Mad")
                     Spacer()
                 }
                 HStack {
                     Circle()
                         .fill(Color("purpleHaze"))
                         .frame(width: 20, height: 20)
-                    Text("Upset, Depressed, Frustrated, Unhappy 😢")
+                    Text("Upset, Depressed, Frustrated, Unhappy")
                     Spacer()
                 }
             }
+            .padding(5)
         }
     }
 }
 struct MoodTrackerView: View {
-    @State var selectedMood: String
+    @State var selectedMood: String? = nil
 
     var body: some View {
         ZStack {
             Color("updatedCream").ignoresSafeArea()
            VStack(spacing: 0) {
                CircleGridView(selectedMood: $selectedMood)
-                
-                Spacer()
-//            CircleGridView()
-//                    .frame(maxHeight: .infinity)
 
+                Spacer()
             }
         }
     }
@@ -129,6 +139,6 @@ struct MoodTrackerView: View {
 
 struct MoodTrackerView_Previews: PreviewProvider {
     static var previews: some View {
-        MoodTrackerView(selectedMood: "🤩")
+        MoodTrackerView()
     }
 }

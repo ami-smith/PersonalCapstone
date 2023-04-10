@@ -56,19 +56,15 @@ struct PromptsView: View {
                 Color("updatedCream").ignoresSafeArea()
                 ZStack {
                     VStack {
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(Color( "coral"))
-                                .frame(width: 320, height: 120)
-                                .cornerRadius(10)
-                            Text("Feeling stuck? Try one of these helpful prompts to get your journaling juices flowing!")
-                                .frame(width: 320, height: 150)
-                                .foregroundColor(.white)
-                        }
                         Spacer()
+                        Image("feelingStuck")
+                            .resizable()
+                            .frame(width: 375, height: 260)
+                            .padding(.top, 30)
                         VStack {
+                            Spacer()
                             ScrollView(.horizontal) {
+                                Spacer()
                                 HStack {
                                     ForEach(prompts, id: \.self) { prompt in
                                         GeometryReader { geometry in
@@ -76,7 +72,6 @@ struct PromptsView: View {
                                                 .fill(Color( "dustyRose"))
                                                 .cornerRadius(15)
                                                 .shadow(color: .gray, radius: 7, x: 0, y: 5)
-                                              //  .frame(width: 300, height: 450)
                                                 .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 40) / -20
                                                 ), axis: (x: 0, y: 10.0, z: 0)
                                                 )
@@ -92,20 +87,22 @@ struct PromptsView: View {
                                                 
                                         }
                                         .frame(width: 300, height: 300)
-                                        .padding(20)
+                                        .padding()
                                     }
                                     
                                 }
-                                .padding(40)
+                                .padding(26)
                                 Spacer()
                             }
-                            
+                            Spacer()
+                           
                         }
                     }
                 }
-                .background(Color("cream").ignoresSafeArea())
+                .background(Color("updatedCream").ignoresSafeArea())
                 .scrollContentBackground(.hidden)
-                .navigationBarTitle(Text("Prompts"))
+                
+               // .navigationBarTitle(Text("Prompts"))
             }
         }
     }
