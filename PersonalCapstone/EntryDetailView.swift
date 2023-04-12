@@ -30,7 +30,7 @@ struct EntryDetailView: View {
                 }
                 
                 .padding()
-                .background(Color("updatedCream"))
+                .background(Color("cream"))
                 //.ignoresSafeArea()
             }
         }

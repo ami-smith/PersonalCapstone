@@ -7,15 +7,13 @@
 
 import SwiftUI
 
-
-
 struct NewJournalEntryView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
     @State private var entryText = ""
     @State private var entryTitle = ""
-    @State private var currentMood = "🤩"
+    @State private var currentMood = "😊"
     
     let moods = [
         "🤩",
@@ -67,9 +65,8 @@ struct NewJournalEntryView: View {
                             
                             try? moc.save()
                             dismiss()
-                            
-                           // selectedMood = currentMood
                         }
+                        .accentColor(Color("purpleHaze"))
                     }
                 }
             }

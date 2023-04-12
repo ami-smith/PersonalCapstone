@@ -15,8 +15,6 @@ struct MainView: View {
                 ContentView()
                     .tabItem {
                         Image(systemName: "house")
-//                            .renderingMode(.template)
-//                            .foregroundColor(Color("banner"))
                         Text("Home")
                     }
                 
@@ -38,6 +36,7 @@ struct MainView: View {
                 //                            Text("Mood Tracker")
                 //                        }
             }
+            .accentColor(Color("purpleHaze"))
         }
     }
 }
