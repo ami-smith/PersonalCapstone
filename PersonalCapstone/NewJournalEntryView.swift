@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CoreData
+import UIKit
 
 struct NewJournalEntryView: View {
     @Environment(\.managedObjectContext) var moc
@@ -14,6 +16,8 @@ struct NewJournalEntryView: View {
     @State private var entryText = ""
     @State private var entryTitle = ""
     @State private var currentMood = "😊"
+    @State private var selectedImage: UIImage? = nil
+    @State private var isShowingImagePicker = false
     
     let moods = [
         "🤩",
@@ -37,6 +41,11 @@ struct NewJournalEntryView: View {
                         TextField("Write your entry here", text: $entryText, axis: .vertical)
                             .lineLimit(15, reservesSpace: true)
                         
+                        Button(action: {
+                            self.isShowingImagePicker = true
+                        }) {
+                            Text("Add Photo")
+                        }
                     }
                     Section {
                         VStack {
@@ -62,7 +71,10 @@ struct NewJournalEntryView: View {
                             newEntry.body = entryText
                             newEntry.emoji = currentMood
                             
-                            
+                            if let image = selectedImage {
+                                newEntry.image = image.jpegData(compressionQuality: 1.0)
+                            }
+                
                             try? moc.save()
                             dismiss()
                         }
@@ -72,10 +84,12 @@ struct NewJournalEntryView: View {
             }
             .navigationTitle("Add Entry")
             .scrollContentBackground(.hidden)
+            .sheet(isPresented: $isShowingImagePicker) {
+                ImagePickerView(selectedImage: self.$selectedImage)
+            }
         }
     }
 }
-
 
 struct NewJournalEntryView_Previews: PreviewProvider {
     static var previews: some View {

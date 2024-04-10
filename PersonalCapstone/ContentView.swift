@@ -9,16 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isShowingNewEntry = false
-    
+    @EnvironmentObject var dataController: DataController
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 Color("updatedCream").ignoresSafeArea()
                 VStack {
                     Image("HeyThere")
                         .padding(.leading, 7)
                         .padding(.top, 20)
-                        
+                    
                     Spacer()
                     HStack {
                         Spacer()
@@ -32,26 +32,46 @@ struct ContentView: View {
                     .padding(53)
                     Spacer()
                 }
-                
-                .navigationBarTitleDisplayMode(.large)
-                .navigationBarItems(trailing:
-                                        HStack {
-                    Spacer()
-                    Button(action: {
-                        isShowingNewEntry = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                
-                }
-                )
             }
-            
-            .sheet(isPresented: $isShowingNewEntry) {
-                NewJournalEntryView()            }
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarItems(leading: GearButton(), trailing: NewEntryButton())
+        }
+        .sheet(isPresented: $isShowingNewEntry) {
+            NewJournalEntryView()
         }
     }
 }
+
+struct GearButton: View {
+    @State private var isShowingSettings = false
+    
+    var body: some View {
+        Button(action: {
+            isShowingSettings = true
+        }) {
+            Image(systemName: "gear")
+        }
+        .sheet(isPresented: $isShowingSettings) {
+            SettingsView()
+        }
+    }
+}
+
+struct NewEntryButton: View {
+    @State private var isShowingNewEntry = false
+    
+    var body: some View {
+        Button(action: {
+            isShowingNewEntry = true
+        }) {
+            Image(systemName: "plus")
+        }
+        .sheet(isPresented: $isShowingNewEntry) {
+            NewJournalEntryView()
+        }
+    }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
