@@ -8,6 +8,7 @@
 
 //THIS IS THE OPTIONAL CODE FOR THE ENTRY DETAIL VIEW:
 import SwiftUI
+import CoreData
 
 struct OptionalEntryDetailView: View {
 

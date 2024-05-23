@@ -30,18 +30,16 @@ struct MainView: View {
                         Text("Prompts")
                     }
                 
-                //                    MoodTrackerView()
-                //                        .tabItem {
-                //                            Image(systemName: "face.smiling")
-                //                            Text("Mood Tracker")
-                //                        }
+                CalendarView(startDate: Date(), monthsToDisplay: 12, moodModelController: MoodModelController())
+                    .tabItem {
+                        Image(systemName: "face.smiling")
+                        Text("Mood Tracker")
+                    }
             }
             .accentColor(Color("purpleHaze"))
         }
     }
 }
-
-
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {

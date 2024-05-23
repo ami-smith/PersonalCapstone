@@ -7,6 +7,7 @@
 
 import SwiftUI
 import LocalAuthentication
+import CoreData
 
 struct LoginView: View {
     

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Prompt: Identifiable, Hashable {
     let id = UUID()

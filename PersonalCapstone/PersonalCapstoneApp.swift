@@ -9,7 +9,8 @@ import SwiftUI
 
 @main
 struct PersonalCapstoneApp: App {
-    @StateObject private var dataController = DataController()
+//    @StateObject private var dataController = DataController()
+    let dataController = DataController.shared
     
     var body: some Scene {
         WindowGroup {

@@ -45,7 +45,16 @@ struct NewJournalEntryView: View {
                             self.isShowingImagePicker = true
                         }) {
                             Text("Add Photo")
+                                .accentColor(Color("purpleHaze"))
                         }
+                        if let selectedImage = selectedImage {
+                            Image(uiImage: selectedImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxHeight: 200)
+                                .padding(.top, 8)
+                        }
+                        
                     }
                     Section {
                         VStack {
@@ -70,9 +79,10 @@ struct NewJournalEntryView: View {
                             newEntry.title = entryTitle
                             newEntry.body = entryText
                             newEntry.emoji = currentMood
+                            newEntry.date = Date()
                             
                             if let image = selectedImage {
-                                newEntry.image = image.jpegData(compressionQuality: 1.0)
+                                newEntry.imageData = image.jpegData(compressionQuality: 1.0)
                             }
                 
                             try? moc.save()
@@ -85,7 +95,7 @@ struct NewJournalEntryView: View {
             .navigationTitle("Add Entry")
             .scrollContentBackground(.hidden)
             .sheet(isPresented: $isShowingImagePicker) {
-                ImagePickerView(selectedImage: self.$selectedImage)
+                ImagePicker(image: self.$selectedImage)
             }
         }
     }

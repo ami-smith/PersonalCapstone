@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
+    
     @State private var isShowingNewEntry = false
     @EnvironmentObject var dataController: DataController
+    
     var body: some View {
         NavigationView {
             ZStack {
