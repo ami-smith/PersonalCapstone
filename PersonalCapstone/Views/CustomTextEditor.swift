@@ -21,7 +21,7 @@ struct CustomTextEditor: UIViewRepresentable {
     func updateUIView(_ uiView: UITextView, context: Context) {
         if uiView.text != text && uiView.text != placeholder {
             uiView.text = text
-            uiView.textColor = .label // Reset to default text color
+            uiView.textColor = .label 
         }
     }
     
@@ -39,7 +39,7 @@ struct CustomTextEditor: UIViewRepresentable {
         func textViewDidBeginEditing(_ textView: UITextView) {
             if textView.textColor == .placeholderText {
                 textView.text = nil
-                textView.textColor = .label // Default text color
+                textView.textColor = .label
             }
         }
         

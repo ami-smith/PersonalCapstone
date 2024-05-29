@@ -118,7 +118,6 @@ extension Binding where Value == String? {
     }
 }
 
-// Ensure CustomTextEditor is defined elsewhere in your project
 
 
 

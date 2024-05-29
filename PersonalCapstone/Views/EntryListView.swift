@@ -208,7 +208,7 @@ struct EntryRowView: View {
         self.entry = entry
         self.dateFormatter = dateFormatter
         self.deleteAction = deleteAction
-        self.day = Day(date: entry.date ?? Date()) // Pass entry.date to Day initializer
+        self.day = Day(date: entry.date ?? Date()) 
     }
     
     var body: some View {

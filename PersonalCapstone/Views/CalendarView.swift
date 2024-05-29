@@ -18,7 +18,7 @@ public struct CalendarView: View {
         let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
         var body: some View {
-            HStack(spacing: 8) { // Adjust spacing here
+            HStack(spacing: 8) {
                 ForEach(weekdays, id: \.self) { day in
                     Text(day)
                         .frame(maxWidth: .infinity)
@@ -41,7 +41,7 @@ public struct CalendarView: View {
                         let day = self.month.monthDays[index]
                         return AnyView(DayCellView(moodModelController: self.moodModelController, day: day))
                     } else {
-                        return AnyView(Text("").frame(width: 40, height: 40)) // Adjust width and height here
+                        return AnyView(Text("").frame(width: 40, height: 40))
                     }
                 }
             }
@@ -85,11 +85,11 @@ struct DayCellView: View {
     var body: some View {
         VStack {
             if day.isPlaceholder {
-                Text("").frame(width: 40, height: 40) // Adjust width and height here
+                Text("").frame(width: 40, height: 40)
             } else {
                 VStack {
                     Text(day.dayName)
-                        .frame(width: 40, height: 40) // Adjust width and height here
+                        .frame(width: 40, height: 40)
                         .clipped()
                     if let emoji = day.emoji {
                         Text(emoji)
@@ -98,7 +98,7 @@ struct DayCellView: View {
                 }
             }
         }
-        .padding(4) // Add padding here
+        .padding(4)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .onTapGesture {
             if !self.day.disabled && self.day.selectableDays {

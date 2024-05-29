@@ -62,7 +62,6 @@ class MoodModelController: ObservableObject {
     @Published var moods: [JournalMood]
     var context: NSManagedObjectContext
 
-    // Add a dictionary to store emojis with date as key
     @Published var emojiByDate: [String: String] = [:]
 
     init(context: NSManagedObjectContext = DataController.shared.container.viewContext) {
