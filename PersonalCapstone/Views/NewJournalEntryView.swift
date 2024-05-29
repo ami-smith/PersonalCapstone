@@ -19,6 +19,8 @@ struct NewJournalEntryView: View {
     @State private var selectedImage: UIImage? = nil
     @State private var isShowingImagePicker = false
     
+    @ObservedObject var moodModelController: MoodModelController
+    
     let moods = [
         "🤩",
         "😊",
@@ -84,6 +86,7 @@ struct NewJournalEntryView: View {
                             if let image = selectedImage {
                                 newEntry.imageData = image.jpegData(compressionQuality: 1.0)
                             }
+                            moodModelController.addJournalEntry(date: newEntry.date!, emoji: newEntry.emoji ?? "😊")
                 
                             try? moc.save()
                             dismiss()
@@ -103,6 +106,6 @@ struct NewJournalEntryView: View {
 
 struct NewJournalEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        NewJournalEntryView()
+        NewJournalEntryView(moodModelController: MoodModelController())
     }
 }

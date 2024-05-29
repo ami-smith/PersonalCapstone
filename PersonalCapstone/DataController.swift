@@ -59,43 +59,84 @@ class DataController: ObservableObject {
 }
 
 class MoodModelController: ObservableObject {
-    
     @Published var moods: [JournalMood]
-    
-    init() {
+    var context: NSManagedObjectContext
+
+    // Add a dictionary to store emojis with date as key
+    @Published var emojiByDate: [String: String] = [:]
+
+    init(context: NSManagedObjectContext = DataController.shared.container.viewContext) {
+        self.context = context
         self.moods = []
+        setup()
+    }
+
+    private func setup() {
         fetchMoods()
+    }
+
+    func addJournalEntry(date: Date, emoji: String) {
+        let dateString = date.dateToString(format: "yyyy-MM-dd")
+        emojiByDate[dateString] = emoji
+
+        let newEntry = JournalMood(context: context)
+        newEntry.date = date
+        newEntry.emoji = emoji
+        newEntry.id = UUID()
+
+        moods.append(newEntry)
+        saveContext()
+    }
+
+    
+    func findDay(for date: Date) -> Day? {
+        for month in getAllMonths() {
+            if let day = month.monthDays.first(where: { $0.dayDate == date }) {
+                return day
+            }
+        }
+        return nil
+    }
+    
+    func getAllMonths() -> [Month] {
+        return []
+    }
+    
+    private func saveContext() {
+        do {
+            try context.save()
+        } catch {
+            print("An error occurred while saving: \(error)")
+        }
     }
     
     func fetchMoods() {
         let request: NSFetchRequest<JournalMood> = JournalMood.fetchRequest()
         
         do {
-            self.moods = try DataController.shared.container.viewContext.fetch(request)
+            self.moods = try context.fetch(request)
         } catch {
             print("Error fetching moods: \(error.localizedDescription)")
         }
     }
     
     func createMood(emotion: Emotion, comment: String?, date: Date) {
-        let context = DataController.shared.container.viewContext
         let newMood = JournalMood(context: context)
         newMood.id = UUID()
         newMood.emotion = emotion.stringValue()
         newMood.date = date
         
-        DataController.shared.saveContext()
+        saveContext()
         fetchMoods()
     }
     
     func deleteMood(at offsets: IndexSet) {
-        let context = DataController.shared.container.viewContext
         offsets.forEach { index in
             let mood = moods[index]
             context.delete(mood)
         }
         
-        DataController.shared.saveContext()
+        saveContext()
         fetchMoods()
     }
 }

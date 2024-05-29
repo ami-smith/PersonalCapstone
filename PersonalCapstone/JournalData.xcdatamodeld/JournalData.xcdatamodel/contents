@@ -14,6 +14,7 @@
     <entity name="JournalMood" representedClassName="JournalMood" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dayAsInt" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="emoji" optional="YES" attributeType="String"/>
         <attribute name="emotion" optional="YES" attributeType="String"/>
         <attribute name="emotionState" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

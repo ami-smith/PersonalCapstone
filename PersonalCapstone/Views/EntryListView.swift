@@ -61,6 +61,8 @@ struct EntryListView: View {
     @State private var showingNewEntryScreen = false
     @State private var selectedEntry: JournalData?
     
+    @ObservedObject var moodModelController: MoodModelController
+    
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -144,7 +146,7 @@ struct EntryListView: View {
                 Label("Add Entry", systemImage: "plus")
             })
             .sheet(isPresented: $showingNewEntryScreen) {
-                NewJournalEntryView()
+                NewJournalEntryView(moodModelController: moodModelController)
             }
         }
         .alert(isPresented: $showingDeleteAlert) {
@@ -263,6 +265,6 @@ struct AddEntryButtonView: View {
 
 struct EntryListView_Previews: PreviewProvider {
     static var previews: some View {
-        EntryListView()
+        EntryListView(moodModelController: MoodModelController())
     }
 }

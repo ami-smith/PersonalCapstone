@@ -22,6 +22,17 @@ struct Emotion: Codable {
         return state.rawValue
     }
     
+    var emoji: String {
+        switch state {
+        case .happy:
+                   return "😊"
+               case .meh:
+                   return "😐"
+               case .sad:
+                   return "😢"
+        }
+    }
+    
 }
 
 struct Mood: Codable, Equatable, Identifiable {
@@ -40,7 +51,7 @@ struct Mood: Codable, Equatable, Identifiable {
     }
     var monthString: String {
         let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "DDD"
+        dateFormatter1.dateFormat = "MMM"
         
         let month = dateFormatter1.string(from: date)
         

@@ -11,6 +11,7 @@ import CoreData
 struct ContentView: View {
     
     @State private var isShowingNewEntry = false
+    @StateObject var moodModelController = MoodModelController()
     @EnvironmentObject var dataController: DataController
     
     var body: some View {
@@ -40,7 +41,7 @@ struct ContentView: View {
             .navigationBarItems(leading: GearButton(), trailing: NewEntryButton())
         }
         .sheet(isPresented: $isShowingNewEntry) {
-            NewJournalEntryView()
+            NewJournalEntryView(moodModelController: moodModelController)
         }
     }
 }
@@ -70,7 +71,7 @@ struct NewEntryButton: View {
             Image(systemName: "plus")
         }
         .sheet(isPresented: $isShowingNewEntry) {
-            NewJournalEntryView()
+            NewJournalEntryView(moodModelController: MoodModelController())
         }
     }
 }
@@ -79,5 +80,6 @@ struct NewEntryButton: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(DataController.shared)
     }
 }

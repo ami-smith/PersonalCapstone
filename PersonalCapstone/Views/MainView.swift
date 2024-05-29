@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @StateObject var moodModelController = MoodModelController()
+    
     var body: some View {
         
         VStack {
@@ -18,13 +20,13 @@ struct MainView: View {
                         Text("Home")
                     }
                 
-                EntryListView()
+                EntryListView(moodModelController: moodModelController)
                     .tabItem {
                         Image(systemName: "book")
                         Text("Entries")
                     }
                 
-                PromptsView()
+                PromptsView(moodModelController: moodModelController)
                     .tabItem {
                         Image(systemName: "list.bullet")
                         Text("Prompts")

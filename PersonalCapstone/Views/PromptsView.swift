@@ -15,6 +15,8 @@ struct Prompt: Identifiable, Hashable {
 
 
 struct PromptsView: View {
+    @ObservedObject var moodModelController: MoodModelController
+    
     @State var prompts = [
         Prompt(body: "Write 5 affirmations for when you are feeling low."),
         Prompt(body: "What is the best book you have read recently?"),
@@ -86,7 +88,7 @@ struct PromptsView: View {
                                                 .shadow(color: .gray, radius: 7, x: 0, y: 5)
                                                 .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 40) / -20), axis: (x: 0, y: 10.0, z: 0)
                                                                  )
-                                            NavigationLink(destination: NewJournalEntryView()) {
+                                            NavigationLink(destination: NewJournalEntryView(moodModelController: moodModelController)) {
 
                                                 Text(prompts[index].body)
                                                     .frame(width: 280, height: 300)
@@ -133,7 +135,7 @@ struct IndividualPromptView: View {
 
 struct PromptsView_Previews: PreviewProvider {
     static var previews: some View {
-        PromptsView()
+        PromptsView(moodModelController: MoodModelController())
     }
 }
 
